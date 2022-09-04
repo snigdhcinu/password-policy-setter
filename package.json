@@ -1,0 +1,18 @@
+{
+  "name": "password-policy-setter",
+  "version": "1.0.0",
+  "description": "Simple interface to create a password policy.",
+  "main": "main.js",
+  "keywords":["password-policy", "password-policy-setter", "set-password-policy", "password", "password-setter", "js"],
+  "repository": {
+	  "type": "git",
+	  "url": "https://github.com/snigdhcinu/password-policy-setter"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Snigdh Shourya",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
