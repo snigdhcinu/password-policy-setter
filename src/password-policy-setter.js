@@ -1,7 +1,8 @@
 /*TODO: Future improvements / updates.
 	1. add regexp for spl. characters.
 	2. provide a medium to specify min. upper/lower/numeric characters, other than default 1.
-	3. Improve maturity of code, use more precise methods, refactor the prepend and append process.
+	3. restructure the parameters.
+	4. Improve maturity of code, use more precise methods, refactor the prepend and append process.
 */
 //const pattern = /^.*(?=\w{8,})(?=.*[A-Z].*)(?=.*[a-z].*)(?=.*\d.*).*$/gm; 
 let pattern  = '';

@@ -1,4 +1,4 @@
-const main  = require ('./src/make-db-backup');
+const main  = require ('./src/password-policy-setter');
 const log   = require ('./utils/log');
 const store = require ('./utils/store');
 
@@ -6,6 +6,7 @@ let config    = {};
 let module    = {};
 let errState  = false;
 let debugMode = false;
+let password;
 
 module.init = (argv) => {
 	if (paramsMissing (argv)) {
@@ -14,67 +15,48 @@ module.init = (argv) => {
 	}
 
 	debugMode = argv.debug || false;
-	store.set ('debugMode', debugMode);
+	//store.set ('debugMode', debugMode);
 
 	config = {
-		mongodbUri       : argv.mongodbUri,
-		backupDir        : argv.backupDir,
-		zipPath          : argv.zipPath,
-		keepLocalBackups : argv.keepLocalBackups || false,
-		noOfTotalBackups : argv.noOfTotalBackups || 7,
-
-		s3         : {
-			key     : argv.key,
-			secret  : argv.secret,
-			region  : argv.region,
-			bucket  : argv.bucket,
-			name    : argv.name || 'backup',
-			dir     : argv.dir,
-		},
+		size    : argv.size,
+		lower   : argv.lower,
+		upper   : argv.upper,
+		numbers : argv.numbers,
 	};
+
+	main.init (config);
 };
 
-module.start = async () => {
+module.satisfied = (pwd) => {
 	if (errState)
 		return;
 
-	try {
-		await main.makeDbBackup (config);
-	}
-	catch (err) {
-		log.error ({err});
-		throw ({err});
-	}
+	main.satisfied (pwd);
+};
+
+module.findAnamoly = (pwd) => {
+	if (errState)
+		return;
+
+	main.findAnamoly (pwd);
 };
 
 const paramsMissing = (argv) => {
 	try {
-		if (!argv.mongodbUri)
+		if (!argv.size)
 			return true;
 
-		if (!argv.backupDir)
+		if (!argv.lower)
 			return true;
 
-		if (!argv.zipPath)
+		if (!argv.upper)
 			return true;
 
-		if (!argv.key)
-			return true;
-		
-		if (!argv.secret)
-			return true;
-
-		if (!argv.bucket)
-			return true;
-
-		if (!argv.region)
-			return true;
-
-		if (!argv.dir)
+		if (!argv.numbers)
 			return true;
 	}
 	catch (e) {
-		log.error ('Error : ' + e);
+		//log.error ('Error : ' + e);
 	}
 };
 
