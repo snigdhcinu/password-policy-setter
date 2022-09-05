@@ -19,6 +19,7 @@ This module is a simple alternate to creating complex native Regex, or tedious m
 2.  lower      : MANDATORY | <boolean>   | e.g. true       => The password must contain at least 1 lowercase character.
 3.  upper      : MANDATORY | <boolean>   | e.g. true       => The password must contain at least 1 uppercase character.
 4.  numbers    : MANDATORY | <boolean>   | e.g. true       => The password must contain at least 1 numeral character.
+5.  splChar    : MANDATORY | <boolean>   | e.g. false      => The password must contain at least 1 special character (character other than A-Z, a-z, 0-9).
 
 ```
 
@@ -29,20 +30,35 @@ This module is a simple alternate to creating complex native Regex, or tedious m
 const ppSetter = require ('password-policy-setter');
 
 let condition = {
-  size: 8,
-  lower: true,
-  upper: true,
-  numbers: true
+  size    : 8,
+  lower   : true,
+  upper   : true,
+  numbers : true,
+	splChar : true,
+};
+
+
+let notokcondition = {
+  size     : 8,
+	lower    : true,
+	upper    : true,
+	numbers  : true,
+	splChars : true,
 };
 
 policy.init(condition);
 
-let okpwd = "AbC4eF78";
-let notokpwd = 'AB3DEF8D';
+let okpwd = "Ab@4_eF7.";
+let notokpwd = 'AB3DeF8D';
 
  policy.satisfied (okpwd);    // returns true;
  policy.satisfied (notokpwd); // returns false;
 
  policy.findAnomaly (okpwd);    // returns { size: true, lower: true, upper: true, numbers: true}
  policy.findAnomaly (notokpwd); // returns { size: true, lower: false, upper: true, numbers: true}
+ 
+ policy.init (notokcondition); // errorState, thus any subsequent call to any of the policy methods will early return with error object.
+ policy.satisfied (okpwd);     // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
+ policy.satisfied (notokpwd);  // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
+
 ```
