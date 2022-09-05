@@ -1,6 +1,6 @@
 {
   "name": "password-policy-setter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple interface to create a password policy.",
   "main": "main.js",
   "keywords": [
