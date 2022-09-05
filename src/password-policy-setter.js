@@ -1,32 +1,56 @@
 /*TODO: Future improvements / updates.
-	1. add regexp for spl. characters.
+	1. add custom regex.
 	2. provide a medium to specify min. upper/lower/numeric characters, other than default 1.
 	3. restructure the parameters.
 	4. Improve maturity of code, use more precise methods, refactor the prepend and append process.
 */
 //const pattern = /^.*(?=\w{8,})(?=.*[A-Z].*)(?=.*[a-z].*)(?=.*\d.*).*$/gm; 
 let pattern  = '';
-const policy = {};
+let errState = false;
+let errObj   = {};
 
-const map = {
-	size    : '\\w{8,}',
+const policy = {};
+let map = {
+	size    : '\\w\\W{8,}', // gets overwritten later, just another way to write the same expression that replaces it.
 	lower   : '.*[a-z].*',
 	upper   : '.*[A-Z].*',
 	numbers : '.*\\d.*',
+	splChar : '.*[^a-zA-Z0-9].*' // not using \W coz, '_' included in \w.
 }
+
+policy.get = function () {
+	if (errState)
+		return errObj;
+
+	return pattern;
+};
 
 policy.init = function (conditions) {
 	pattern = `^.*`;
 
 	Object.keys(conditions).forEach((key) => {
 		if (!map[key]) {
-			console.log("Unknown or Unidentified condition passed, exiting");
+			let msg = "Unknown or Unidentified condition passed, exiting";
+			console.log(msg, key);
+			errState = true;
+			errObj   = {
+				message : msg,
+				key,
+			};
+
 			return;
 		}
 
-		if (key && map[key]) {
-			let unit =
-				key === "size" ? `(?=\\w{${conditions[key]},})` : `(?=${map[key]})`;
+		if (key && conditions[key]) {
+			let unit;
+
+			if (key === "size") {
+				unit = `(?=.{${conditions[key]},})`
+				map['size'] = unit;
+			} else {
+				unit = `(?=${map[key]})`;
+			}
+
 			pattern += unit;
 		}
 	});
@@ -37,6 +61,9 @@ policy.init = function (conditions) {
 };
 
 policy.satisfied = function (password) { 
+
+	if (errState)
+		return errObj;
 
 	if (!password) 
 		return false; 
@@ -50,6 +77,9 @@ policy.satisfied = function (password) {
 };
 
 policy.findAnomaly = function (password) {
+
+	if (errState)
+		return errObj;
 
 	let result = {};
 	Object.keys(map).forEach((item) => {
