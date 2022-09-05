@@ -1,4 +1,5 @@
 /*TODO: Future improvements / updates.
+	0. make error object, an actual error object.
 	1. add custom regex.
 	2. provide a medium to specify min. upper/lower/numeric characters, other than default 1.
 	3. restructure the parameters.
