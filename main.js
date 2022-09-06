@@ -32,14 +32,16 @@ root.satisfied = (pwd) => {
 	if (errState)
 		return;
 
-	main.satisfied (pwd);
+	let result = main.satisfied (pwd);
+	return result;
 };
 
 root.findAnomaly = (pwd) => {
 	if (errState)
 		return;
 
-	main.findAnomaly (pwd);
+	let result = main.findAnomaly (pwd);
+	return result;
 };
 
 const paramsMissing = (argv) => {
