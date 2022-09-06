@@ -46,19 +46,19 @@ let notokcondition = {
 	splChars : true,
 };
 
-policy.init(condition);
+ppSetter.init(condition);
 
 let okpwd = "Ab@4_eF7.";
 let notokpwd = 'AB3DeF8D';
 
- policy.satisfied (okpwd);    // returns true;
- policy.satisfied (notokpwd); // returns false;
+ ppSetter.satisfied (okpwd);    // returns true;
+ ppSetter.satisfied (notokpwd); // returns false;
 
- policy.findAnomaly (okpwd);    // returns { size: true, lower: true, upper: true, numbers: true}
- policy.findAnomaly (notokpwd); // returns { size: true, lower: false, upper: true, numbers: true}
+ ppSetter.findAnomaly (okpwd);    // returns { size: true, lower: true, upper: true, numbers: true}
+ ppSetter.findAnomaly (notokpwd); // returns { size: true, lower: false, upper: true, numbers: true}
  
- policy.init (notokcondition); // errorState, thus any subsequent call to any of the policy methods will early return with error object.
- policy.satisfied (okpwd);     // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
- policy.satisfied (notokpwd);  // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
+ ppSetter.init (notokcondition); // errorState, thus any subsequent call to any of the policy methods will early return with error object.
+ ppSetter.satisfied (okpwd);     // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
+ ppSetter.satisfied (notokpwd);  // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
 
 ```
