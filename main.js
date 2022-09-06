@@ -3,12 +3,12 @@ const log   = require ('./utils/log');
 const store = require ('./utils/store');
 
 let config    = {};
-let module    = {};
+let root      = {};
 let errState  = false;
 let debugMode = false;
 let password;
 
-module.init = (argv) => {
+root.init = (argv) => {
 	if (paramsMissing (argv)) {
 		errState = true;
 		return;
@@ -28,14 +28,14 @@ module.init = (argv) => {
 	main.init (config);
 };
 
-module.satisfied = (pwd) => {
+root.satisfied = (pwd) => {
 	if (errState)
 		return;
 
 	main.satisfied (pwd);
 };
 
-module.findAnamoly = (pwd) => {
+root.findAnamoly = (pwd) => {
 	if (errState)
 		return;
 
@@ -61,4 +61,4 @@ const paramsMissing = (argv) => {
 	}
 };
 
-module.exports = module;
+root.exports = root;
