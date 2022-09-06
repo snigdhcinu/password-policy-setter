@@ -35,11 +35,11 @@ root.satisfied = (pwd) => {
 	main.satisfied (pwd);
 };
 
-root.findAnamoly = (pwd) => {
+root.findAnomaly = (pwd) => {
 	if (errState)
 		return;
 
-	main.findAnamoly (pwd);
+	main.findAnomaly (pwd);
 };
 
 const paramsMissing = (argv) => {
