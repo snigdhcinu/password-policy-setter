@@ -61,4 +61,4 @@ const paramsMissing = (argv) => {
 	}
 };
 
-root.exports = root;
+module.exports = root;
