@@ -22,6 +22,7 @@ module.init = (argv) => {
 		lower   : argv.lower,
 		upper   : argv.upper,
 		numbers : argv.numbers,
+		splChar : argv.splChar,
 	};
 
 	main.init (config);
