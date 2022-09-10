@@ -17,12 +17,18 @@ root.init = (argv) => {
 	debugMode = argv.debug || false;
 	//store.set ('debugMode', debugMode);
 
+	let size    = (typeof argv.size === 'number') ? (argv.size <= 0 ? 0 : 1) : (argv.size ? 1 : 0);
+	let lower   = (typeof argv.lower === 'number') ? (argv.lower <= 0 ? 0 : 1) : (argv.lower ? 1 : 0);
+	let upper   = (typeof argv.upper === 'number') ? (argv.upper <= 0 ? 0 : 1) : (argv.upper ? 1 : 0);
+	let numbers = (typeof argv.numbers === 'number') ? (argv.numbers <= 0 ? 0 : 1) : (argv.numbers ? 1 : 0);
+	let splChar = (typeof argv.splChar === 'number') ? (argv.splChar <= 0 ? 0 : 1) : (argv.splChar ? 1 : 0);
+
 	config = {
-		size    : argv.size,
-		lower   : argv.lower || false,
-		upper   : argv.upper || false,
-		numbers : argv.numbers || false,
-		splChar : argv.splChar || false,
+		size,
+		lower,
+		upper,
+		numbers,
+		splChar,
 	};
 
 	main.init (config);

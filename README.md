@@ -15,14 +15,16 @@ This module is a simple alternate to creating complex native Regex, or tedious m
 
 # PARAMETERS
 ```
-1.  size       : MANDATORY | <number>    | e.g. 8          => The minimum character length of the password.
-2.  lower      : OPTIONAL  | <boolean>   | default : false | e.g. true       => The password must contain at least 1 lowercase character.
-3.  upper      : OPTIONAL  | <boolean>   | default : false | e.g. true       => The password must contain at least 1 uppercase character.
-4.  numbers    : OPTIONAL  | <boolean>   | default : false | e.g. true       => The password must contain at least 1 numeral character.
-5.  splChar    : OPTIONAL  | <boolean>   | default : false | e.g. false      => The password must contain at least 1 special character (character other than A-Z, a-z, 0-9).
+1.  size       : MANDATORY | <number>                | e.g. 8          => The minimum character length of the password.
+2.  lower      : OPTIONAL  | <number> or <boolean>   | default : false | e.g. true/3       => The password must contain at least n lowercase character, where n is the value passed.
+3.  upper      : OPTIONAL  | <number> or <boolean>   | default : false | e.g. true/1       => The password must contain at least n uppercase character, where n is the value passed.
+4.  numbers    : OPTIONAL  | <number> or <boolean>   | default : false | e.g. true/1       => The password must contain at least n numeral character, where n is the value passed.
+5.  splChar    : OPTIONAL  | <number> or <boolean>   | default : false | e.g. false/0      => The password must contain at least n special character (character other than A-Z, a-z, 0-9), where n is the value passed.
 
 ```
-
+Note: 
+1. negative numbers will be treated as 0.
+2. any positive number will be treated as true, and the no. of times that character should be present in the string.
 
 # EXAMPLE
 
@@ -31,10 +33,10 @@ const ppSetter = require ('password-policy-setter');
 
 let condition = {
   size    : 8,
-  lower   : true,
-  upper   : true,
-  numbers : true,
-	splChar : true,
+  lower   : true, // or 2
+  upper   : true, // or 1
+  numbers : true, // or 1
+	splChar : true, // or 1
 };
 
 
@@ -48,7 +50,7 @@ let notokcondition = {
 
 ppSetter.init(condition);
 
-let okpwd = "Ab@4_eF7.";
+let okpwd = "Ab@4_eF7.k";
 let notokpwd = 'AB3DeF8D';
 
  ppSetter.satisfied (okpwd);    // returns true;
@@ -62,3 +64,8 @@ let notokpwd = 'AB3DeF8D';
  ppSetter.satisfied (notokpwd);  // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
 
 ```
+# PATCH NOTES : 2.3.1
+
+1. Only size param mandatory, rest optional, with default value of false.
+2. Can pass either a boolean or number as param value.
+3. Ability to specify the number of times a certain character-type should be present.

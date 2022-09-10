@@ -1,9 +1,7 @@
 /*TODO: Future improvements / updates.
 	0. make error object, an actual error object.
 	1. add custom regex.
-	2. provide a medium to specify min. upper/lower/numeric characters, other than default 1.
-	3. restructure the parameters.
-	4. Improve maturity of code, use more precise methods, refactor the prepend and append process.
+	2. Improve maturity of code, use more precise methods, refactor the prepend and append process.
 */
 //const pattern = /^.*(?=\w{8,})(?=.*[A-Z].*)(?=.*[a-z].*)(?=.*\d.*).*$/gm; 
 let pattern  = '';
@@ -13,10 +11,10 @@ let errObj   = {};
 const policy = {};
 let map = {
 	size    : '\\w\\W{8,}', // gets overwritten later, just another way to write the same expression that replaces it.
-	lower   : '.*[a-z].*',
-	upper   : '.*[A-Z].*',
-	numbers : '.*\\d.*',
-	splChar : '.*[^a-zA-Z0-9].*' // not using \W coz, '_' included in \w.
+	lower   : '[a-z]',
+	upper   : '[A-Z]',
+	numbers : '\\d',
+	splChar : '[^a-zA-Z0-9]' // not using \W coz, '_' included in \w.
 }
 
 policy.get = function () {
@@ -49,7 +47,8 @@ policy.init = function (conditions) {
 				unit = `(?=.{${conditions[key]},})`
 				map['size'] = unit;
 			} else {
-				unit = `(?=${map[key]})`;
+				unit = `(?=(.*${map[key]}.*){${conditions[key]},})`;
+				map[key] = unit;
 			}
 
 			pattern += unit;
