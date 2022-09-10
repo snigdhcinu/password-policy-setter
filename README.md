@@ -16,10 +16,10 @@ This module is a simple alternate to creating complex native Regex, or tedious m
 # PARAMETERS
 ```
 1.  size       : MANDATORY | <number>    | e.g. 8          => The minimum character length of the password.
-2.  lower      : MANDATORY | <boolean>   | e.g. true       => The password must contain at least 1 lowercase character.
-3.  upper      : MANDATORY | <boolean>   | e.g. true       => The password must contain at least 1 uppercase character.
-4.  numbers    : MANDATORY | <boolean>   | e.g. true       => The password must contain at least 1 numeral character.
-5.  splChar    : MANDATORY | <boolean>   | e.g. false      => The password must contain at least 1 special character (character other than A-Z, a-z, 0-9).
+2.  lower      : OPTIONAL  | <boolean>   | default : false | e.g. true       => The password must contain at least 1 lowercase character.
+3.  upper      : OPTIONAL  | <boolean>   | default : false | e.g. true       => The password must contain at least 1 uppercase character.
+4.  numbers    : OPTIONAL  | <boolean>   | default : false | e.g. true       => The password must contain at least 1 numeral character.
+5.  splChar    : OPTIONAL  | <boolean>   | default : false | e.g. false      => The password must contain at least 1 special character (character other than A-Z, a-z, 0-9).
 
 ```
 

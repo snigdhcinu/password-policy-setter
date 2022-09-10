@@ -19,10 +19,10 @@ root.init = (argv) => {
 
 	config = {
 		size    : argv.size,
-		lower   : argv.lower,
-		upper   : argv.upper,
-		numbers : argv.numbers,
-		splChar : argv.splChar,
+		lower   : argv.lower || false,
+		upper   : argv.upper || false,
+		numbers : argv.numbers || false,
+		splChar : argv.splChar || false,
 	};
 
 	main.init (config);
@@ -47,15 +47,6 @@ root.findAnomaly = (pwd) => {
 const paramsMissing = (argv) => {
 	try {
 		if (!argv.size)
-			return true;
-
-		if (!argv.lower)
-			return true;
-
-		if (!argv.upper)
-			return true;
-
-		if (!argv.numbers)
 			return true;
 	}
 	catch (e) {
