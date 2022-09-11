@@ -9,13 +9,15 @@ let errState = false;
 let errObj   = {};
 
 const policy = {};
-let map = {
+const defaultMap = {
 	size    : '\\w\\W{8,}', // gets overwritten later, just another way to write the same expression that replaces it.
 	lower   : '[a-z]',
 	upper   : '[A-Z]',
 	numbers : '\\d',
 	splChar : '[^a-zA-Z0-9]' // not using \W coz, '_' included in \w.
-}
+};
+let map = {...defaultMap};
+let conditions = {};
 
 policy.get = function () {
 	if (errState)
@@ -24,9 +26,9 @@ policy.get = function () {
 	return pattern;
 };
 
-let conditions = {};
 
 policy.init = function (data) {
+	map        = {...defaultMap};
 	pattern    = `^.*`;
 	conditions = data;
 
@@ -50,15 +52,17 @@ policy.init = function (data) {
 				unit = `(?=.{${conditions[key]},})`
 				map['size'] = unit;
 			} else {
-				unit = `(?=(.*${map[key]}.*){${conditions[key]},})`;
+				unit = `(?=(.*${map[key]}.*){${conditions[key]}})`;
 				map[key] = unit;
 			}
 
 			pattern += unit;
 		}
 
+		/*
 		if (key && !conditions[key])
 			delete map[key];
+		*/
 
 	});
 
