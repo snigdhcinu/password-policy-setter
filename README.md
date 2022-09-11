@@ -64,8 +64,14 @@ let notokpwd = 'AB3DeF8D';
  ppSetter.satisfied (notokpwd);  // returns {message : 'Unknown or Unidentified condition passed, exiting', key : 'splChars'}
 
 ```
-# PATCH NOTES : 2.3.1
+# PATCH NOTES 
 
+## 2.3.1
 1. Only size param mandatory, rest optional, with default value of false.
 2. Can pass either a boolean or number as param value.
 3. Ability to specify the number of times a certain character-type should be present.
+
+## 2.3.2
+1. Bug fix.
+2. Upper limit added too (1000).
+3. In findAnomaly, only the keys, with a non-false or non-zero value will be shown only, previously these keys were shown with a value false.
