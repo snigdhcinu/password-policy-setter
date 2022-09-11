@@ -24,8 +24,11 @@ policy.get = function () {
 	return pattern;
 };
 
-policy.init = function (conditions) {
-	pattern = `^.*`;
+let conditions = {};
+
+policy.init = function (data) {
+	pattern    = `^.*`;
+	conditions = data;
 
 	Object.keys(conditions).forEach((key) => {
 		if (!map[key]) {
