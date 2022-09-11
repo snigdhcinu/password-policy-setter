@@ -87,14 +87,15 @@ policy.findAnomaly = function (password) {
 
 	let result = {};
 	Object.keys(map).forEach((item) => {
-		result[item] = false;
+		if (conditions[item])
+			result[item] = false;
 	});
 
 	if (!password) return result;
 
 	let input = password.trim();
 
-	Object.keys(map).forEach((item) => {
+	Object.keys(result).forEach((item) => {
 		if (input.match(map[item])) result[item] = true;
 	});
 
