@@ -53,6 +53,10 @@ policy.init = function (conditions) {
 
 			pattern += unit;
 		}
+
+		if (key && !conditions[key])
+			delete map[key];
+
 	});
 
 	pattern += `.*$`;
