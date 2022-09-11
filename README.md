@@ -75,3 +75,7 @@ let notokpwd = 'AB3DeF8D';
 1. Bug fix.
 2. Upper limit added too (1000).
 3. In findAnomaly, only the keys with a non-false or non-zero value will be shown, previously all keys were shown with a default value false.
+
+## 2.3.5
+1. Fixed all bugs.
+2. Stable version.
